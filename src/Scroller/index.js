@@ -7,7 +7,7 @@ class Scroller {
     ancestor = window,
     target = null,
     duration = 1000,
-    position = positionTypes.center,
+    position = positionTypes.top,
     timingFunc = timingFunctions.linear,
   }={}) {
     this._ancestor = ancestor;
