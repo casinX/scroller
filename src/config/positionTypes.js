@@ -1,5 +1,5 @@
 export default {
-  top: 'top',
+  start: 'start',
   center: 'center',
   end: 'end',
 }

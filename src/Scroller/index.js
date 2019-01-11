@@ -7,9 +7,9 @@ class Scroller {
     ancestor = window,
     target = null,
     duration = 1000,
-    position = positionTypes.top,
-    timingFunc = timingFunctions.linear
-  }) {
+    position = positionTypes.center,
+    timingFunc = timingFunctions.linear,
+  }={}) {
     this._ancestor = ancestor;
     this._target = target;
     this._duration = duration;
@@ -65,18 +65,42 @@ class Scroller {
     this._scrollLoop = setTimeout(this._animationLoop, 1000 / this.FPS);
   };
 
+  _checkIsEqualNode = (node1, node2) => {
+    return node1 instanceof HTMLElement &&
+      node2 instanceof HTMLElement &&
+      node1 === node2;
+  };
+
+  _getTargetOffsetTop = () => {
+    let parentNode = this._target;
+    let offset = 0;
+
+    while (!(parentNode === null || this._checkIsEqualNode(parentNode, this._ancestor))){
+
+      if(parentNode.offsetTop){
+        offset += parentNode.offsetTop;
+      }
+
+      parentNode = parentNode.parentNode;
+    }
+
+    return offset;
+  };
+
   _getScrollLength = () => {
     const ancestorHeight = this._ancestor === window ?
       this._ancestor.innerHeight :
       this._ancestor.clientHeight;
 
+    const targetOffsetTop = this._getTargetOffsetTop();
+
     switch (this._position) {
       case 'start':
-        return this._target.offsetTop;
+        return targetOffsetTop;
       case 'center':
-        return this._target.offsetTop - ancestorHeight / 2 + this._target.clientHeight / 2;
+        return targetOffsetTop - ancestorHeight / 2 + this._target.clientHeight / 2;
       case 'end':
-        return this._target.offsetTop - ancestorHeight + this._target.clientHeight;
+        return targetOffsetTop - ancestorHeight + this._target.clientHeight;
     }
   };
 
