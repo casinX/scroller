@@ -1,0 +1,53 @@
+{
+  "name": "@ktx/scroller",
+  "version": "1.0.0",
+  "description": "Scroll controller",
+  "keywords": [
+    "casinX",
+    "EriksoonFskR",
+    "kts",
+    "ktx",
+    "scroller",
+    "axios",
+    "api"
+  ],
+  "license": "MIT",
+  "author": "casinX <anton.casin@gmail.com>",
+  "homepage": "https://github.com/casinX/scroller#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/casinX/scroller.git"
+  },
+  "bugs": {
+    "url": "https://github.com/casinX/scroller/issues"
+  },
+  "main": "./lib/index.js",
+  "unpkg": "./dist/scroller.min.js",
+  "module": "./es/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "es"
+  ],
+  "scripts": {
+    "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "babel src --out-dir es",
+    "build:umd:min": "NODE_ENV=production parcel build ./src/index.js -o dist/scroller.min.js --no-source-maps",
+    "build": "npm run clean && npm run build:commonjs && npm run build:es && npm run build:umd:min",
+    "clean": "rimraf lib dist es",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "parcel-bundler": "^1.11.0",
+    "rimraf": "^2.6.3"
+  }
+}
