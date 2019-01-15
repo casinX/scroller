@@ -20,6 +20,9 @@ class Scroller {
     this._scrollLoop = null;
     this._ignoreFirst = false;
 
+    // todo сделать учет скрола не только сверху вниз но и снизу вверх
+    this._initialScrollY = null;
+
     this.FPS = 60;
   }
 
@@ -28,6 +31,12 @@ class Scroller {
 
     if (this._target === null) {
       return;
+    }
+
+    if(this._ancestor === window){
+      this._initialScrollY = this._ancestor.pageYOffset;
+    }else{
+      this._initialScrollY = this._ancestor.scrollTop;
     }
 
     this._ancestor.addEventListener('scroll', this.onUserScroll);
@@ -118,6 +127,7 @@ class Scroller {
       this._scrollLoop = null;
       this._startTime = null;
       this._ignoreFirst = false;
+      this._initialScrollY = null;
       this._ancestor.removeEventListener('scroll', this.onUserScroll);
     }
   };
